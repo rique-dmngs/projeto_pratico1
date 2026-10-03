@@ -44,4 +44,22 @@ describe("adicionarDespesa", () => {
 
         expect(despesasAtualizadas).not.toBe(despesas)
     })
+
+    it("deve lançar erro se valor for igual a 0", () => {
+        const despesas: Despesa[] = [
+            { id: 1, descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 }
+        ]
+        const nova: Despesa = { id: 2, descricao: "Transporte", valor: 0, categoria: "transporte", mes: 5 }
+
+        expect(() => adicionarDespesa(despesas, nova)).toThrow("Valor inválido")
+    })
+
+    it("deve lançar erro se valor for menor que 0", () => {
+        const despesas: Despesa[] = [
+            { id: 1, descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 }
+        ]
+        const nova: Despesa = { id: 2, descricao: "Transporte", valor: -10, categoria: "transporte", mes: 5 }
+
+        expect(() => adicionarDespesa(despesas, nova)).toThrow("Valor inválido")
+    })
 })
