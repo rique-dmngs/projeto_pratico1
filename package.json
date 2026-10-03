@@ -1,0 +1,28 @@
+{
+  "name": "projeto_pratico1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run",
+    "dev": "tsx src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rique-dmngs/projeto_pratico1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rique-dmngs/projeto_pratico1/issues"
+  },
+  "homepage": "https://github.com/rique-dmngs/projeto_pratico1#readme",
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  }
+}
