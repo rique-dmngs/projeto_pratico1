@@ -11,6 +11,8 @@ export function adicionarDespesa(despesas: Despesa[], nova: Despesa): Despesa[] 
     }
 
     return [...despesas, nova];
+    /*o uso de spread não altera a função original, mas cria um novo array com todos os
+    elementos do array original (despesas) além da nova despesa adicionada ao final (nova)*/
 }
 
 export function removerDespesa(despesas: Despesa[], id: number): Despesa[] {

@@ -2,6 +2,7 @@ import { Despesa } from "./tipos"
 import { adicionarDespesa, removerDespesa, despesasDaCategoria, totalGasto, maiorDespesa } from "./despesas"
 import { descricaoCategoria, matrizCategoriaMes, formatarRelatorio } from "./relatorio"
 
+//EXEMPLO DE ARRAY "despesas":
 export const despesas: Despesa[] = [
     { id: 1, descricao: "Café", valor: 20, categoria: "alimentacao", mes: 4 },
     { id: 2, descricao: "Taxi", valor: 50, categoria: "transporte", mes: 7 },
