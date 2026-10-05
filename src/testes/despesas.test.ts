@@ -3,6 +3,7 @@ import { adicionarDespesa } from "../despesas"
 import { removerDespesa } from "../despesas"
 import { despesasDaCategoria } from "../despesas"
 import { totalGasto } from "../despesas"
+import { maiorDespesa } from "../despesas"
 import { Despesa } from "../tipos"
 
 describe("adicionarDespesa", () => {
@@ -179,5 +180,47 @@ describe ("totalGasto", () => {
         const total = totalGasto(despesas)
 
         expect(total).toBe(20)
+    })
+})
+
+describe ("maiorDespesa", () => {
+    it("deve retornar a Despesa com o maior valor do array despesas", () => {
+        const despesas: Despesa[] = [
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 },
+            { id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 },
+            { id: 3 , descricao: "Cinema", valor: 30, categoria: "lazer", mes: 5 },
+            { id: 4 , descricao: "Jantar", valor: 40, categoria: "alimentacao", mes: 5 }
+        ]
+        const maior = maiorDespesa(despesas)
+
+        expect(maior).toEqual({ id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 })
+    })
+
+    it("deve retornar undefined se o array despesas for vazio", () => {
+        const despesas: Despesa[] = []
+        const maior = maiorDespesa(despesas)
+
+        expect(maior).toBeUndefined()
+    })
+
+    it("deve retornar a única Despesa do array despesas se houver apenas uma", () => {
+        const despesas: Despesa[] = [
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 }
+        ]
+        const maior = maiorDespesa(despesas)
+
+        expect(maior).toEqual({ id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 })
+    })
+
+    it("se houver mais de uma Despesa com o maior valor, deve retornar a primeira encontrada", () => {
+        const despesas: Despesa[] = [
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 },
+            { id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 },
+            { id: 3 , descricao: "Cinema", valor: 30, categoria: "lazer", mes: 5 },
+            { id: 4 , descricao: "Jantar", valor: 50, categoria: "alimentacao", mes: 5 }
+        ]
+        const maior = maiorDespesa(despesas)
+
+        expect(maior).toEqual({ id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 })
     })
 })
