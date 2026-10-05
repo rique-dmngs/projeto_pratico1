@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest"
 import { adicionarDespesa } from "../despesas"
+import { removerDespesa } from "../despesas"
 import { Despesa } from "../tipos"
 
 describe("adicionarDespesa", () => {
@@ -61,5 +62,43 @@ describe("adicionarDespesa", () => {
         const nova: Despesa = { id: 2, descricao: "Transporte", valor: -10, categoria: "transporte", mes: 5 }
 
         expect(() => adicionarDespesa(despesas, nova)).toThrow("Valor inválido")
+    })
+})
+
+describe("removerDespesa", () => {
+    it("deve retornar um novo array sem a despesa do id informado", () => {
+        const despesas: Despesa[] = [
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 },
+            { id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 },
+        ]
+        const id = 1
+
+        const despesasAtualizadas = removerDespesa(despesas, id)
+
+        expect(despesasAtualizadas).toEqual([{ id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 }])
+    })
+
+    it("deve retornar um novo array com as mesmas despesas se o id informado não existir", () => {
+        const despesas: Despesa[] = [
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 },
+            { id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 },
+        ]
+        const id = 3
+
+        const despesasAtualizadas = removerDespesa(despesas, id)
+
+        expect(despesasAtualizadas).toEqual([...despesas])
+    })
+
+    it("array despesasAtualizadas deve ser diferente do array despesas", () => {
+        const despesas: Despesa[] = [
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 },
+            { id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 },
+        ]
+        const id = 1
+
+        const despesasAtualizadas = removerDespesa(despesas, id)
+
+        expect(despesasAtualizadas).not.toBe(despesas)
     })
 })
