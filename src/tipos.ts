@@ -14,7 +14,7 @@ export interface Despesa {
     além de serem importantes dados para a definição de uma despesa.*/
 }
 
-const CATEGORIAS: Categoria[] = [
+export const CATEGORIAS: Categoria[] = [
     "alimentacao",
     "transporte",
     "lazer",
