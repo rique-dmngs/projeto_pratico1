@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest"
 import { adicionarDespesa } from "../despesas"
 import { removerDespesa } from "../despesas"
 import { despesasDaCategoria } from "../despesas"
+import { totalGasto } from "../despesas"
 import { Despesa } from "../tipos"
 
 describe("adicionarDespesa", () => {
@@ -148,5 +149,35 @@ describe ("despesasDaCategoria", () => {
         const despesasFiltradas = despesasDaCategoria(despesas, categoria)
 
         expect(despesasFiltradas).toEqual([])
+    })
+})
+
+describe ("totalGasto", () => {
+    it("deve retornar a soma dos valores de todas Despesa do array despesas", () => {
+        const despesas: Despesa[] = [
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 },
+            { id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 },
+            { id: 3 , descricao: "Cinema", valor: 30, categoria: "lazer", mes: 5 },
+            { id: 4 , descricao: "Jantar", valor: 40, categoria: "alimentacao", mes: 5 }
+        ]
+        const total = totalGasto(despesas)
+
+        expect(total).toBe(140)
+    })
+
+    it("deve retornar 0 se despesas for um array vazio", () => {
+        const despesas: Despesa[] = []
+        const total = totalGasto(despesas)
+
+        expect(total).toBe(0)
+    })
+
+    it("deve retornar o valor da única Despesa do array despesas se houver apenas uma", () => {
+        const despesas: Despesa[] = [
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 }
+        ]
+        const total = totalGasto(despesas)
+
+        expect(total).toBe(20)
     })
 })
