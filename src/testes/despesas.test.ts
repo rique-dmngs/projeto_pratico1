@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest"
 import { adicionarDespesa } from "../despesas"
 import { removerDespesa } from "../despesas"
+import { despesasDaCategoria } from "../despesas"
 import { Despesa } from "../tipos"
 
 describe("adicionarDespesa", () => {
@@ -100,5 +101,52 @@ describe("removerDespesa", () => {
         const despesasAtualizadas = removerDespesa(despesas, id)
 
         expect(despesasAtualizadas).not.toBe(despesas)
+    })
+})
+
+describe ("despesasDaCategoria", () => {
+    it("deve retornar apenas as despesas da categoria informada", () => {
+        const despesas: Despesa[] = [
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 },
+            { id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 },
+            { id: 3 , descricao: "Cinema", valor: 30, categoria: "lazer", mes: 5 },
+            { id: 4 , descricao: "Jantar", valor: 40, categoria: "alimentacao", mes: 5 }
+        ]
+        const categoria = "alimentacao"
+
+        const despesasFiltradas = despesasDaCategoria(despesas, categoria)
+
+        expect(despesasFiltradas).toEqual([
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 },
+            { id: 4 , descricao: "Jantar", valor: 40, categoria: "alimentacao", mes: 5 }
+        ])
+    })
+
+    it("array despesasFiltradas deve ser diferente do array despesas", () => {
+        const despesas: Despesa[] = [
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 },
+            { id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 },
+            { id: 3 , descricao: "Cinema", valor: 30, categoria: "lazer", mes: 5 },
+            { id: 4 , descricao: "Jantar", valor: 40, categoria: "alimentacao", mes: 5 }
+        ]
+        const categoria = "alimentacao"
+
+        const despesasFiltradas = despesasDaCategoria(despesas, categoria)
+
+        expect(despesasFiltradas).not.toBe(despesas)
+    })
+
+    it("deve retornar um array vazio se despesas não possuir nenhuma Despesa da categoria informada", () => {
+        const despesas: Despesa[] = [
+            { id: 1 , descricao: "Almoço", valor: 20, categoria: "alimentacao", mes: 5 },
+            { id: 2 , descricao: "Transporte", valor: 50, categoria: "transporte", mes: 5 },
+            { id: 3 , descricao: "Cinema", valor: 30, categoria: "lazer", mes: 5 },
+            { id: 4 , descricao: "Jantar", valor: 40, categoria: "alimentacao", mes: 5 }
+        ]
+        const categoria = "moradia"
+
+        const despesasFiltradas = despesasDaCategoria(despesas, categoria)
+
+        expect(despesasFiltradas).toEqual([])
     })
 })
